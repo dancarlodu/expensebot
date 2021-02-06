@@ -3,6 +3,7 @@ import logging
 from decouple import config
 
 #########################################################
+
 # Versión del bot
 VERSION = 0.1
 # Obtiene el token desde el archivo de configuración
