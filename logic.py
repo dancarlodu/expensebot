@@ -1,3 +1,12 @@
+import database.db as db
+from models.Account import Account
+from models.Earning import Earning
+from models.Spending import Spending
+from datetime import datetime
+from sqlalchemy import extract
+
+
+
 #########################################################
 # Logica acerca del bot
 def get_about_this(VERSION):
@@ -24,7 +33,29 @@ def get_help_message ():
         "*listar gastos|lgg en {mes} de {año}* - Lista los gastos de un mes/año\n"
         "*obtener saldo|s* - Muestra el saldo actual (disponible)\n"
         "*remover|r ganancia|g|gasto|gg {índice}* - Remueve una ganancia o un gasto según su índice\n"
-        "*listar cuentas|lc* - Lista las cuentas registradas (sólo
-        admin)\n"
+        "*listar cuentas|lc* - Lista las cuentas registradas (sólo admin)\n"
         )
     return response
+
+#########################################################
+# Lógica bienvenida al bot
+
+def get_welcome_message(bot_data):
+    response = (
+            f"Hola, soy *{bot_data.first_name}* "
+            f"también conocido como *{bot_data.username}*.\n\n"
+            "¡Estoy aquí para ayudarte a registrar tus gastos!"
+        )
+    return response
+
+def register_account(user_id):
+    account = db.session.query(Account).get(user_id)
+    db.session.commit()
+
+    if account == None:
+        account = Account(user_id, 0)
+        db.session.add(account)
+        db.session.commit()
+        return True
+
+    return False

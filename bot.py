@@ -17,12 +17,25 @@ if __name__ == '__main__':
 # Aquí vendrá la implementación de la lógica del bot
 #########################################################
 
+# Inicio del bot
 @bot.message_handler(commands=['start'])
 def on_command_start(message):
-    pass
+    bot.send_chat_action(message.chat.id, 'typing')
+
+    bot.send_message (
+        message.chat.id,
+        logic.get_welcome_message(bot.get_me()),
+        parse_mode="Markdown")
+    
+    bot.send_message (
+        message.chat.id,
+        logic.get_help_message(),
+        parse_mode="Markdown")
+    
+    logic.register_account(message.from_user.id)
 
 #########################################################
-
+# Ayuda del bot
 @bot.message_handler(commands=['help'])
 def on_command_help(message):
     bot.send_chat_action(message.chat.id, 'typing')
