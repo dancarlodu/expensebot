@@ -82,9 +82,18 @@ def on_list_spendings(message):
 
 #########################################################
 
+#Mensaje “obtener saldo”
 @bot.message_handler(regexp=r"^(obtener saldo|s)$")
 def on_get_balance(message):
-    pass
+    bot.send_chat_action(message.chat.id, 'typing')
+
+    balance = logic.get_balance (message.from_user.id)
+    text = "\U0000274C Aún no tienes una cuenta asociada, ejecuta /start para arreglarlo."
+
+    if balance != None:
+        text = f"Tu saldo actual es ${balance}"
+        
+    bot.reply_to(message, text)
 
 #########################################################
 
