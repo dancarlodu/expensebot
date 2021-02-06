@@ -242,13 +242,15 @@ def on_list_accounts(message):
 
     text = ""
 
-    if logic.check_admin(message.from_user.id):
+    if logic.check_admin (message.from_user.id):
         accounts = logic.list_accounts()
+
         text = "``` Listado de cuentas:\n\n"
     
         for account in accounts:
             text += f"| {account.id} | ${account.balance} |\n"
-            text += "```"
+        
+        text += "```"
     
     else:
         text = f"\U0000274C Esta funcionalidad sólo está disponible para administradores"
