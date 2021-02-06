@@ -28,10 +28,15 @@ def on_command_help(message):
     pass
 
 #########################################################
-
+# Acerca del bot
 @bot.message_handler(commands=['about'])
 def on_command_about(message):
-    pass
+    bot.send_chat_action(message.chat.id, 'typing')
+
+    bot.send_message(
+        message.chat.id,
+        logic.get_about_this(config.VERSION),
+        parse_mode="Markdown")
 
 #########################################################
 
