@@ -6,9 +6,9 @@ from decouple import config
 
 # Versión del bot
 VERSION = 0.1
+
 # Obtiene el token desde el archivo de configuración
 TELEGRAM_TOKEN = config('TELEGRAM_TOKEN')
-
 
 #########################################################
 
